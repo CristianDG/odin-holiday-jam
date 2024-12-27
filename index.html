@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+  <canvas id="canvas" tabindex="1"></canvas>
+  <br/>
+  <button id="up">^</button>
+  <button id="left">&lt;</button>
+  <button id="right">&gt;</button>
+  <button id="down">v</button>
+
+  <script>
+    up.addEventListener("click", () => {
+      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 'w'}))
+      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 'w'})), 20)
+    })
+    right.addEventListener("click", () => {
+      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 'd'}))
+      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 'd'})), 20)
+    })
+    left.addEventListener("click", () => {
+      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 'a'}))
+      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 'a'})), 20)
+    })
+    down.addEventListener("click", () => {
+      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 's'}))
+      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 's'})), 20)
+    })
+  </script>
+
+  <script type="text/javascript" src="bin/wasm/odin.js"></script>
+  <script type="text/javascript">
+    platform_functions = (interface) => ({
+      _get_platform_name: () => {
+        console.log("javascript")
+      },
+      _resize_canvas: (id_ptr, id_len, width, height) => {
+        const id = interface.loadString(id_ptr, id_len)
+        const canvas_elem = document.getElementById(id)
+        canvas_elem.width = width
+        canvas_elem.height = height
+      }
+    })
+    odin.runWasm("bin/wasm/out.wasm", null, { platform_functions });
+  </script>
+</body>
+</html>

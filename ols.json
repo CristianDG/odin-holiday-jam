@@ -1,0 +1,5 @@
+{
+  "collections": [
+		{ "name": "third-party", "path": "./third-party" }
+	]
+}

@@ -1,0 +1,6 @@
+
+*
+!.gitignore
+!native/
+!wasm/
+!wasm/*
