@@ -55,9 +55,10 @@ _init :: proc "c" (name: string, width, height: i32) {
   ok := webgl.CreateCurrentContextById(id, {})
   _resize_canvas(id, width, height)
   webgl.Viewport(0, 0, width, height)
-  js.add_event_listener(id, .Key_Down, rawptr(uintptr(1)), key_callback)
-  js.add_event_listener(id, .Key_Up, rawptr(uintptr(0)), key_callback)
-  js.add_event_listener(id, .Focus_Out, rawptr(uintptr(0)), reset_keys)
+
+  js.add_window_event_listener(.Key_Down, rawptr(uintptr(1)), key_callback)
+  js.add_window_event_listener(.Key_Up, rawptr(uintptr(0)), key_callback)
+  js.add_window_event_listener(.Focus_Out, rawptr(uintptr(0)), reset_keys)
 }
 
 

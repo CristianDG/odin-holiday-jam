@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
+  <style>
+    * { margin: 0 }
+  </style>
 </head>
 <body>
 
-  <canvas id="canvas" tabindex="1"></canvas>
+  <canvas id="canvas"></canvas>
+<!--
   <br/>
   <button id="up">^</button>
   <button id="left">&lt;</button>
@@ -14,23 +18,16 @@
   <button id="down">v</button>
 
   <script>
-    up.addEventListener("click", () => {
-      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 'w'}))
-      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 'w'})), 20)
-    })
-    right.addEventListener("click", () => {
-      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 'd'}))
-      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 'd'})), 20)
-    })
-    left.addEventListener("click", () => {
-      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 'a'}))
-      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 'a'})), 20)
-    })
-    down.addEventListener("click", () => {
-      canvas.dispatchEvent(new KeyboardEvent("keydown", {'key': 's'}))
-      setTimeout(() => canvas.dispatchEvent(new KeyboardEvent("keyup", {'key': 's'})), 20)
-    })
+    const simulate_keypress = (element, key) => {
+      element.dispatchEvent(new KeyboardEvent("keydown", {key}))
+      setTimeout(() => element.dispatchEvent(new KeyboardEvent("keyup", {key})), 20)
+    }
+    up.addEventListener("click", () => simulate_keypress(window, 'w'))
+    right.addEventListener("click", () => simulate_keypress(window, 'd'))
+    left.addEventListener("click", () => simulate_keypress(window, 'a'))
+    down.addEventListener("click", () => simulate_keypress(window, 's'))
   </script>
+-->
 
   <script type="text/javascript" src="bin/wasm/odin.js"></script>
   <script type="text/javascript">
@@ -43,7 +40,7 @@
         const canvas_elem = document.getElementById(id)
         canvas_elem.width = width
         canvas_elem.height = height
-      }
+      },
     })
     odin.runWasm("bin/wasm/out.wasm", null, { platform_functions });
   </script>
